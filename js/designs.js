@@ -320,19 +320,21 @@ start();
             let costInt = currentCost.substring(4);
             let shortRace = `${currentRace} `;
             if (currentRace === "Any") shortRace = "";
+            let checkSearch = ` containing the search term <span><b><em>${searchValue}</em></b></span>`;
+            if (searchValue === "" || searchValue === " ") checkSearch = "";
             
             if (currentClass !== "All") {
                 if (currentCost === "anycost") {
                     if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>card found containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>card found${checkSearch}.`);
                     } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>cards found containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>cards found${checkSearch}.`);
                     }
                 } else {
                     if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>card found with cost <span><b>${costInt}</b></span> containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>card found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
                     } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>cards found with cost <span><b>${costInt}</b></span> containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>cards found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
                     }
                 }
 
@@ -340,15 +342,15 @@ start();
             } else {
                 if (currentCost === "anycost") {
                     if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>card found containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>card${checkSearch}.`);
                     } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>cards found containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>cards${checkSearch}.`);
                     }
                 } else {
                     if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>card found with cost <span><b>${costInt}</b></span> containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>card found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
                     } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>cards found with cost <span><b>${costInt}</b></span> containing the search term <span><b><em>${searchValue}</em></b></span>.`);
+                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>cards found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
                     }
                 }
             }
