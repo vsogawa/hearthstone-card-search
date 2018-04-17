@@ -465,7 +465,7 @@ h2 span {
     }
     
     #hamburgermenu {
-        display: flex;
+        display: none;
         flex-direction: column-reverse;
         position: absolute;
         top: 130px;

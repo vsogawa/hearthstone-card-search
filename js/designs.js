@@ -372,8 +372,14 @@ start();
         $("#submit").click(search);
         
         $("#hamburger").click(function() {
-            $("#hamburgermenu").toggleClass("moveMenu");
             $("#hamburger").toggleClass("darken");
+            if ($("#hamburger").hasClass("darken")) {
+                $("#hamburgermenu").css("display", "flex");
+            }
+            else {
+                $("#hamburgermenu").css("display", "none");
+            }
+            $("#hamburgermenu").toggleClass("moveMenu");
         });
 
 
