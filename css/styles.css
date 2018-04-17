@@ -1,0 +1,665 @@
+* {
+    text-align: center;
+    font-family: "Quicksand";
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    height: 73px;
+    background-image: url("https://d2q63o9r0h0ohi.cloudfront.net/images/nav/newNav/wood_middle_repeat-13afba7e33301ed48451159052b5b90f25685a3a9b21a32558d1ca7f2f2d3b380dc6d098f55847a6c8d6ca26407188be8654061f116074f39bd43542ffdfb205.png");
+    margin-bottom: 20px;
+    margin-top: 60px;
+    padding-left: 450px;
+}
+
+#hamburgermenu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+}
+
+.headercontainer {
+    margin: 0;
+    position: relative;
+    height: 40px;
+    box-shadow: inset 0 0 25px #241103;
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    padding: 10px;
+    padding-top: 20px;
+    color: #e0baa0;
+    font-size: 24px;
+}
+
+.dropdown {
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    padding: 10px;
+    top: 73px;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+input[type=radio] {
+    transform: scale(1.5);
+    margin-right: 4px;
+}
+
+#classdrop {
+    width: 120px;
+}
+
+#costdrop {
+    width: 70px;
+}
+
+#racedrop {
+    width: 140px;
+}
+
+.dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown ul li {
+    text-align: left;
+    margin-bottom: 7px;
+    color: black;
+}
+
+#logo {
+    width: 400px;
+    height: auto;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    cursor: auto;
+}
+
+#logo:hover {
+    transform: none;
+}
+
+#search {
+    position: absolute;
+    box-sizing: border-box;
+    top: 80px;
+    left: calc(80vw/2 - 40px);
+    margin: auto;
+    width: 20vw;
+    height: 30px;
+    font-size: 18px;
+}
+
+#submit {
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: 18px;
+    background-color: rgb(240, 204, 5);
+    font-weight: 700;
+    color: #67310a;
+    font-size: 28px;
+    font-family: 'Permanent Marker', cursive;
+    margin-right: 70px;
+}
+
+#submit:active {
+    background-color: rgb(185, 158, 10);
+    color: #4a2409;
+}
+
+img {
+    width: 307px;
+    height: 465px;
+    transition: 0.1s;
+    cursor: pointer;
+    color: white;
+}
+
+span {
+    color: gold;
+}
+
+.blur {
+    transition: 0.1s;
+    filter: blur(4px);
+    transition-timing-function: ease-out;
+}
+
+.toblur {
+    transition: 0.2s;
+}
+
+#activeCard {
+    position: absolute;
+    z-index: 3;
+    background: rgba(0, 0, 10, 0.4);
+    width: 60vw;
+    text-align: left;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#detailsText {
+    margin-top: 43px;
+    width: 40%;
+    height: 290px;
+    border: 6px solid saddlebrown;
+    background-color: wheat;
+    padding: 30px;
+    color: saddlebrown;
+    border-radius: 10px;
+}
+
+#name {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 0;
+}
+
+#cardSet {
+    font-size: 20px;
+}
+
+#close {
+    float: right;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#close:hover {
+    color: wheat;
+}
+
+img:hover {
+    transform: scale(1.07);
+    transition: 0.1s;
+}
+
+#cover {
+    width: 100%;
+    height: 100vh;
+    opacity: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.woodback {
+    background-image: url("https://i.pinimg.com/originals/b0/13/d0/b013d0d746ce175367328ea548dbc91a.jpg");
+}
+
+.center {
+    display: inline-block;
+    margin: auto;
+    width: 90%;
+    height: 70px;
+    border-radius: 40px;
+    opacity: 0.9;
+    margin-bottom: -20px;
+    padding-top: 10px;
+}
+
+#howmany,
+#howmanyfailed {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    background-color: rgb(71, 122, 191);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+
+
+#activeImage:hover,
+#goldImage:hover {
+    transform: none;
+}
+
+#activeImage,
+#goldImage {
+    margin-top: -30px;
+}
+
+.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
+p {
+    margin: 15px 0;
+}
+
+
+#loading {
+    width: 100%;
+    height: auto;
+    z-index: 3;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#loading:hover {
+    transform: none;
+    cursor: wait;
+}
+
+#loadingtext {
+    margin: 0;
+    z-index: 4;
+    font-size: 5vw;
+    font-family: 'Permanent Marker', cursive;
+    color: white;
+    position: fixed;
+    top: 33vw;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    cursor: wait;
+}
+
+.fa {
+    transition: 0.2s;
+}
+
+.fa-rotate-180 {
+    transition: 0.2s;
+}
+
+.darken {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+label {
+    cursor: pointer;
+}
+
+#background {
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+h2 {
+    font-size: 36px;
+    color: gold;
+    font-weight: 700;
+    text-align: left;
+}
+
+h2 span {
+    font-size: 90px;
+}
+
+#random {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#welcome {
+    width: 50vw;
+    height: 100%;
+    margin-top: 90px;
+    max-width: 640px;
+}
+
+#welcome:hover {
+    cursor: default;
+    transform: none;
+}
+
+#welcometext {
+    margin-top: 80px;
+    width: 30vw;
+    padding: 20px;
+    margin-right: 50px;
+}
+
+#random p {
+    font-size: 28px;
+    color: #c8eaff;
+    font-weight: 700;
+    text-align: left;
+}
+
+#minilogo {
+    display: none;
+}
+
+#hamburger {
+    display: none;
+}
+
+.hide {
+    display: none;
+}
+
+/*//////////////////////////////////////////////////FOR SCREENS BETWEEN 880 and 1200 PX///////////////////////////////////////////////////*/
+
+@media only screen and (max-width: 1200px) {
+    
+    #logo {
+        display: none;
+    }
+    
+    #minilogo {
+        display: block;
+        z-index: 2;
+        position: absolute;
+        top: 62px;
+        left: 30px;
+        width: 70px;
+        height: auto;
+        cursor: auto;
+    }
+
+    #minilogo:hover {
+        transform: none;
+    }
+    
+    #search {
+        position: absolute;
+        box-sizing: border-box;
+        top: 80px;
+        left: 150px;
+        margin: auto;
+        width: 30vw;
+        height: 30px;
+        font-size: 18px;
+    }
+    
+    #submit {
+        margin-right: 0px;
+    }
+    
+    #random {
+        display: flex;
+    }
+
+    #welcome {
+        width: 50vw;
+        height: 100%;
+        margin-top: 90px;
+        max-width: 640px;
+        margin-left: 20px;
+    }
+
+    #welcome:hover {
+        cursor: default;
+        transform: none;
+    }
+
+    #welcometext {
+        margin: 0 auto;
+        width: 30vw;
+        text-align: left;
+    }
+    
+    h2 span {
+        font-size: 70px;
+    }
+    
+    h2 {
+        text-align: left;
+    }
+
+    #random p {
+        font-size: 28px;
+        color: #c8eaff;
+        font-weight: 700;
+        text-align: left;
+    }
+    
+    #activeCard {
+        width: 90vw;
+    }
+
+}
+
+/*//////////////////////////////////////////////////FOR SCREENS BETWEEN 480 and 880 PX///////////////////////////////////////////////////*/
+
+@media only screen and (max-width: 880px) {
+    #hamburger {
+        display: block;
+        color: gold;
+        font-size: 34px;
+        padding: 10px;
+        padding-top: 14px;
+        height: 73px;
+        box-sizing: border-box;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+    }
+    
+    #hamburgermenu {
+        display: flex;
+        flex-direction: column-reverse;
+        position: absolute;
+        top: 130px;
+        z-index: 2;
+        transition: 0.2s;
+        right: -200px;
+    }
+    
+    .moveMenu {
+        transform: translateX(-200px);
+        transition: 0.2s;
+        transition-timing-function: ease-out;
+    }
+    
+    .fa-angle-double-down {
+        display: none;
+    }
+    
+    #search {
+        position: absolute;
+        box-sizing: border-box;
+        top: 80px;
+        left: 150px;
+        margin: auto;
+        width: 50vw;
+        height: 30px;
+        font-size: 18px;
+    }
+
+    .dropdown {
+        position: absolute;
+        z-index: 2;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 10px;
+        top: 0;
+        left: auto;
+        right: 117px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    
+    .headercontainer {
+        margin: 0;
+        position: relative;
+        height: auto;
+        box-shadow: inset 0 0 25px #241103;
+        background-color: rgb(106, 62, 30);
+        cursor: pointer;
+        padding: 10px;
+        color: #e0baa0;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    
+    #costdrop {
+        width: 100px;
+    }
+    #classdrop {
+        width: 140px;
+    }
+    #racedrop {
+        width: 160px;
+    }
+    .dropdown ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown ul li {
+        text-align: left;
+        margin-bottom: 7px;
+        color: black;
+    }
+    
+    .darken2 {
+        background-color: rgb(72, 43, 21);
+    }
+    
+    #random {
+        display: inline-block;
+        width: 100%;
+    }
+    
+    #welcometext {
+        margin: auto;
+        width: 80%;
+    }
+    
+    #welcome {
+        margin: 0;
+        margin-top: 20px;
+        min-width: 300px;
+    }
+    
+    h2 span {
+        font-size: 40px;
+    }
+    
+    h2 {
+        text-align: left;
+    }
+
+    #random p {
+        font-size: 28px;
+        color: #c8eaff;
+        font-weight: 700;
+        text-align: left;
+    }
+    
+    img {
+        width: 200px;
+        height: 303px;
+    }
+    
+    #minilogo {
+        width: 70px;
+        height: auto;
+    }
+    
+    #activeCard {
+        height: 300px;
+        background-color: rgba(0,0,0,0);
+    }
+    
+    #detailsText {
+        height: 270px;
+        width: 300px;
+        margin-top: 10px;
+        overflow-y: scroll;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+}
+
+/*//////////////////////////////////////////////////FOR SCREENS BETWEEN 480 and 880 PX///////////////////////////////////////////////////*/
+
+@media only screen and (max-width: 480px) {
+    #search {
+        position: absolute;
+        box-sizing: border-box;
+        top: 90px;
+        left: calc(30vw/2);
+        margin: 0 auto;
+        width: 70vw;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    header {
+        margin-top: 0;
+        margin-bottom: 70px;
+    }
+    
+    #minilogo {
+        top: 6px;
+        left: 9px;
+        width: 60px;
+    }
+    
+    #hamburgermenu {
+        top: 73px;
+    }
+    
+    #random {
+        display: inline-block;
+        width: 100%;
+    }
+    
+    #welcometext {
+        margin: auto;
+        width: 80%;
+    }
+    
+    #welcome {
+        margin: 0;
+        margin-top: 20px;
+    }
+    
+    h2 span {
+        font-size: 40px;
+    }
+    
+    h2 {
+        text-align: left;
+    }
+
+    #random p {
+        font-size: 28px;
+        color: #c8eaff;
+        font-weight: 700;
+        text-align: left;
+    }
+    
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Viviana Ogawa</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://vsogawa.github.io/img/favicon_vo-01.png">
+</head>
+
+<body class="woodback stop-scrolling">
+    <div id="background">
+        <p id="loadingtext">LOADING</p>
+        <img src="https://i.imgur.com/TeiIgMH.gif" id="loading" alt="loading">
+        <div id="cover" class="hide"></div>
+        <header class="toblur">
+            <img src="https://upload.wikimedia.org/wikipedia/vi/d/d4/Hearthstone_logo.png" id="logo" alt="logo">
+            <img src="https://d2q63o9r0h0ohi.cloudfront.net/images/logos/navigation/logo_small_hover-568d05f991aa115a347e42e131b4a7247876d388888f4a50267de4f9b0d9c86ace900e9391de5bf8f7090fd535e6ce2831054c51294710734340baf1cbc50740.png" id="minilogo">
+            <div id="hamburger"><i class="fa fa-bars"></i></div>
+            <form>
+                <div id="hamburgermenu">
+                    <input type="submit" id="submit" value="Submit">
+                    <div class="headercontainer" id="racecontainer">Race <span><i class="fa fa-angle-double-down" id="racearrow"></i></span>
+                        <div class="dropdown hide" id="racedrop">
+                            <ul>
+                                <li><input type="radio" name="racebox" id="Any" checked> <label for="Any">Any</label></li>
+                                <li><input type="radio" name="racebox" id="Beast"> <label for="Beast">Beast</label></li>
+                                <li><input type="radio" name="racebox" id="Demon"> <label for="Demon">Demon</label></li>
+                                <li><input type="radio" name="racebox" id="Dragon"> <label for="Dragon">Dragon</label></li>
+                                <li><input type="radio" name="racebox" id="Elemental"> <label for="Elemental">Elemental</label></li>
+                                <li><input type="radio" name="racebox" id="Mech"> <label for="Mech">Mech</label></li>
+                                <li><input type="radio" name="racebox" id="Murloc"> <label for="Murloc">Murloc</label></li>
+                                <li><input type="radio" name="racebox" id="Pirate"> <label for="Pirate">Pirate</label></li>
+                                <li><input type="radio" name="racebox" id="Totem"> <label for="Totem">Totem</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="headercontainer" id="classcontainer">Class <span><i class="fa fa-angle-double-down" id="classarrow"></i></span>
+                        <div class="dropdown hide" id="classdrop">
+                            <ul>
+                                <li><input type="radio" name="classbox" id="All" checked> <label for="All">All</label></li>
+                                <li><input type="radio" name="classbox" id="Druid"> <label for="Druid">Druid</label></li>
+                                <li><input type="radio" name="classbox" id="Hunter"> <label for="Hunter">Hunter</label></li>
+                                <li><input type="radio" name="classbox" id="Mage"> <label for="Mage">Mage</label></li>
+                                <li><input type="radio" name="classbox" id="Neutral"> <label for="Neutral">Neutral</label></li>
+                                <li><input type="radio" name="classbox" id="Paladin"> <label for="Paladin">Paladin</label></li>
+                                <li><input type="radio" name="classbox" id="Priest"> <label for="Priest">Priest</label></li>
+                                <li><input type="radio" name="classbox" id="Rogue"> <label for="Rogue">Rogue</label></li>
+                                <li><input type="radio" name="classbox" id="Shaman"> <label for="Shaman">Shaman</label></li>
+                                <li><input type="radio" name="classbox" id="Warlock"> <label for="Warlock">Warlock</label></li>
+                                <li><input type="radio" name="classbox" id="Warrior"> <label for="Warrior">Warrior</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="headercontainer" id="costcontainer">Cost <span><i class="fa fa-angle-double-down" id="costarrow"></i></span>
+                        <div class="dropdown hide" id="costdrop">
+                            <ul>
+                                <li><input type="radio" name="costbox" id="anycost" checked> <label for="anycost">Any</label></li>
+                                <li><input type="radio" name="costbox" id="cost1"> <label for="cost1">1</label></li>
+                                <li><input type="radio" name="costbox" id="cost2"> <label for="cost2">2</label></li>
+                                <li><input type="radio" name="costbox" id="cost3"> <label for="cost3">3</label></li>
+                                <li><input type="radio" name="costbox" id="cost4"> <label for="cost4">4</label></li>
+                                <li><input type="radio" name="costbox" id="cost5"> <label for="cost5">5</label></li>
+                                <li><input type="radio" name="costbox" id="cost6"> <label for="cost6">6</label></li>
+                                <li><input type="radio" name="costbox" id="cost7"> <label for="cost7">7</label></li>
+                                <li><input type="radio" name="costbox" id="cost8"> <label for="cost8">8</label></li>
+                                <li><input type="radio" name="costbox" id="cost9"> <label for="cost9">9</label></li>
+                                <li><input type="radio" name="costbox" id="cost10"> <label for="cost10">10</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" id="search" placeholder="Search for a card here!"></form>
+        </header>
+
+
+        <div id="random" class="hide">
+            <img id="welcome" class="hide" src="http://archive.tespa.org/wp-content/uploads/2014/09/Hearthstone-Cards-PNG.png">
+            <div id="welcometext" class="hide">
+                <h2><span>Welcome</span> to Viviana's Hearthstone card library!</h2>
+                <p>Search for a card above to get started!</p>
+            </div>
+        </div>
+        <div class="center hide toblur">
+            <div id="howmany"></div>
+            <div id="howmanyfailed"></div>
+        </div>
+        <br>
+        <div id="results" class="toblur"></div>
+        <div id="details"></div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/designs.js"></script>
+</body>
+
+</html>
