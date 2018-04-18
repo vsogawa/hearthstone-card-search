@@ -20,8 +20,7 @@ let start = function () {
             if (costStatus === true) {
                 $("#costdrop").addClass("hide");
                 $("#costarrow").removeClass("fa-rotate-180");
-                $("#costcontainer").removeClass("darken");
-                $("#costcontainer").removeClass("darken2");
+                $("#costcontainer").removeClass("darken darken2");
                 costStatus = false;
             }
         }
@@ -29,8 +28,7 @@ let start = function () {
             if (costStatus === false) {
                 $("#costdrop").removeClass("hide");
                 $("#costarrow").addClass("fa-rotate-180");
-                $("#costcontainer").addClass("darken");
-                $("#costcontainer").addClass("darken2");
+                $("#costcontainer").addClass("darken darken2");
                 costStatus = true;
             }
         }
@@ -38,8 +36,7 @@ let start = function () {
             if (classStatus === true) {
                 $("#classdrop").addClass("hide");
                 $("#classarrow").removeClass("fa-rotate-180");
-                $("#classcontainer").removeClass("darken");
-                $("#classcontainer").removeClass("darken2");
+                $("#classcontainer").removeClass("darken darken2");
                 classStatus = false;
             }
         }
@@ -47,8 +44,7 @@ let start = function () {
             if (classStatus === false) {
                 $("#classdrop").removeClass("hide");
                 $("#classarrow").addClass("fa-rotate-180");
-                $("#classcontainer").addClass("darken");
-                $("#classcontainer").addClass("darken2");
+                $("#classcontainer").addClass("darken darken2");
                 classStatus = true;
             }
         }
@@ -56,8 +52,7 @@ let start = function () {
             if (raceStatus === true) {
                 $("#racedrop").addClass("hide");
                 $("#racearrow").removeClass("fa-rotate-180");
-                $("#racecontainer").removeClass("darken");
-                $("#racecontainer").removeClass("darken2");
+                $("#racecontainer").removeClass("darken darken2");
                 raceStatus = false;
             }
         }
@@ -65,12 +60,10 @@ let start = function () {
             if (raceStatus === false) {
                 $("#racedrop").removeClass("hide");
                 $("#racearrow").addClass("fa-rotate-180");
-                $("#racecontainer").addClass("darken");
-                $("#racecontainer").addClass("darken2");
+                $("#racecontainer").addClass("darken darken2");
                 raceStatus = true;
             }
         }
-
         $("#costcontainer").click(function () {
             event.stopPropagation();
             if (costStatus === false) {
@@ -81,7 +74,6 @@ let start = function () {
                 hideCost();
             }
         });
-
         $("#classcontainer").click(function () {
             event.stopPropagation();
             if (classStatus === false) {
@@ -133,22 +125,11 @@ start();
             $("#welcome").addClass("hide");
             $("#welcometext").addClass("hide");
             $("#howmanyfailed").empty();
-            let numberOfResults = 0; 
+            let numberOfResults = 0;
             let searchValue = $("#search").val();
             let searchValueLower = searchValue.toLowerCase();
             $("#results").empty();
             $(".center").removeClass("hide");
-            let allCounter = 0,
-                druidCounter = 0,
-                hunterCounter = 0,
-                mageCounter = 0,
-                neutralCounter = 0,
-                paladinCounter = 0,
-                priestCounter = 0,
-                rogueCounter = 0,
-                shamanCounter = 0,
-                warlockCounter = 0,
-                warriorCounter = 0;
             let arrayOfResultObjects = []; ///////////////This array holds all search result objects and resets every search/////////////////////
 
             //////////////////////////////When a card is clicked from the results of the search///////////////////////////////////////
@@ -230,155 +211,69 @@ start();
                         imageGold = allCards[category][b].img;
                     }
 
-                    if (cardName.includes(searchValueLower) || cardDescription.includes(searchValueLower) || cardRace.includes(searchValueLower)) {
+                    if ((cardName.includes(searchValueLower) || cardDescription.includes(searchValueLower) || cardRace.includes(searchValueLower)) && (currentCost === "anycost" || currentCost === cardCost) && (currentRace === "Any" || currentRace === allCards[category][b].race)) {
                         ///////////////There are three groups of cards that do not have a class, but rather have 3 under "multiClassGroup"////////////////////
-                        if (allCards[category][b].multiClassGroup === "Jade Lotus") {
-                            druidCounter++;
-                            rogueCounter++;
-                            shamanCounter++;
-                            neutralCounter++;
-                            allCounter++;
-                            if (currentClass === "Shaman" || currentClass === "Rogue" || currentClass === "Druid" || currentClass === "Neutral" || currentClass === "All") {
-                                if (currentCost === "anycost" || currentCost === cardCost) {
-                                    if (currentRace === "Any" || currentRace === allCards[category][b].race) {
-                                        $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                                        numberOfResults++;
-                                        arrayOfResultObjects.push(allCards[category][b]);
-                                        $(`#${cardID}`).click(clickCard);
-                                    }
-                                }
-                            }
-                        } else if (allCards[category][b].multiClassGroup === "Grimy Goons") {
-                            hunterCounter++;
-                            paladinCounter++;
-                            warriorCounter++;
-                            neutralCounter++;
-                            allCounter++;
-                            if (currentClass === "Hunter" || currentClass === "Paladin" || currentClass === "Warrior" || currentClass === "Neutral" || currentClass === "All") {
-                                if (currentCost === "anycost" || currentCost === cardCost) {
-                                    if (currentRace === "Any" || currentRace === allCards[category][b].race) {
-                                        $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                                        numberOfResults++;
-                                        arrayOfResultObjects.push(allCards[category][b]);
-                                        $(`#${cardID}`).click(clickCard);
-                                    }
-                                }
-                            }
-                        } else if (allCards[category][b].multiClassGroup === "Kabal") {
-                            mageCounter++;
-                            priestCounter++;
-                            warlockCounter++;
-                            neutralCounter++;
-                            allCounter++;
-                            if (currentClass === "Mage" || currentClass === "Priest" || currentClass === "Warlock" || currentClass === "Neutral" || currentClass === "All") {
-                                if (currentCost === "anycost" || currentCost === cardCost) {
-                                    if (currentRace === "Any" || currentRace === allCards[category][b].race) {
-                                        $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                                        numberOfResults++;
-                                        arrayOfResultObjects.push(allCards[category][b]);
-                                        $(`#${cardID}`).click(clickCard);
-                                    }
-                                }
-                            }
+                        if (allCards[category][b].multiClassGroup === "Jade Lotus" && (currentClass === "Shaman" || currentClass === "Rogue" || currentClass === "Druid" || currentClass === "Neutral" || currentClass === "All")) {
+                            $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
+                            numberOfResults++;
+                            arrayOfResultObjects.push(allCards[category][b]);
+                            $(`#${cardID}`).click(clickCard);
+                        } else if (allCards[category][b].multiClassGroup === "Grimy Goons" && (currentClass === "Hunter" || currentClass === "Paladin" || currentClass === "Warrior" || currentClass === "Neutral" || currentClass === "All")) {
+                            $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
+                            numberOfResults++;
+                            arrayOfResultObjects.push(allCards[category][b]);
+                            $(`#${cardID}`).click(clickCard);
+                        } else if (allCards[category][b].multiClassGroup === "Kabal" && (currentClass === "Mage" || currentClass === "Priest" || currentClass === "Warlock" || currentClass === "Neutral" || currentClass === "All")) {
+                            $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
+                            numberOfResults++;
+                            arrayOfResultObjects.push(allCards[category][b]);
+                            $(`#${cardID}`).click(clickCard);
                         } else { ////////If the card is none of the three weird groups of cards that has multiple classes, i.e. almost all of the cards//////////////////
-                            allCounter++;
-                            if (allCards[category][b].playerClass === "Druid") druidCounter++;
-                            if (allCards[category][b].playerClass === "Hunter") hunterCounter++;
-                            if (allCards[category][b].playerClass === "Mage") mageCounter++;
-                            if (allCards[category][b].playerClass === "Neutral") neutralCounter++;
-                            if (allCards[category][b].playerClass === "Paladin") paladinCounter++;
-                            if (allCards[category][b].playerClass === "Priest") priestCounter++;
-                            if (allCards[category][b].playerClass === "Rogue") rogueCounter++;
-                            if (allCards[category][b].playerClass === "Shaman") shamanCounter++;
-                            if (allCards[category][b].playerClass === "Warlock") warlockCounter++;
-                            if (allCards[category][b].playerClass === "Warrior") warriorCounter++;
-
                             if (currentClass === "All") {
-                                if (currentCost === "anycost" || currentCost === cardCost) {
-                                    if (currentRace === "Any" || currentRace === allCards[category][b].race) {
-                                        $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                                        arrayOfResultObjects.push(allCards[category][b]);
-                                        numberOfResults++;
-                                        $(`#${cardID}`).click(clickCard);
-                                    }
-                                }
-
+                                $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
+                                arrayOfResultObjects.push(allCards[category][b]);
+                                numberOfResults++;
+                                $(`#${cardID}`).click(clickCard);
                             } else if (allCards[category][b].playerClass === currentClass) {
-                                if (currentCost === "anycost" || currentCost === cardCost) {
-                                    if (currentRace === "Any" || currentRace === allCards[category][b].race) {
-                                        $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                                        numberOfResults++;
-                                        arrayOfResultObjects.push(allCards[category][b]);
-                                        $(`#${cardID}`).click(clickCard);
-                                    }
-                                }
+                                $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
+                                numberOfResults++;
+                                arrayOfResultObjects.push(allCards[category][b]);
+                                $(`#${cardID}`).click(clickCard);
                             }
                         }
                     }
                 }
             }
-            let costInt = currentCost.substring(4);
-            let shortRace = `${currentRace} `;
+
+
+            let shortClass = ` <span><b>${currentClass}</b></span> class`;
+            if (currentClass === "All") shortClass = "";
+
+            let shortRace = ` <span><b>${currentRace}</span></b> `;
             if (currentRace === "Any") shortRace = "";
+
+            let cardvscards = " cards found";
+            if (numberOfResults === 1) cardvscards = " card found";
+
+            let resultCount = ` with cost <span><b>${currentCost.substring(4)}</b></span>`;
+            if (currentCost === "anycost") resultCount = "";
+
             let checkSearch = ` containing the search term <span><b><em>${searchValue}</em></b></span>`;
             if (searchValue === "" || searchValue === " ") checkSearch = "";
-            
-            if (currentClass !== "All") {
-                if (currentCost === "anycost") {
-                    if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>card found${checkSearch}.`);
-                    } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>cards found${checkSearch}.`);
-                    }
-                } else {
-                    if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>card found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
-                    } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${currentClass}</b></span> class <span><b>${shortRace}</span></b>cards found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
-                    }
-                }
+
+            $("#howmany").empty().append(`${numberOfResults}${shortClass}${shortRace}${cardvscards}${resultCount}${checkSearch}.`);
 
 
-            } else {
-                if (currentCost === "anycost") {
-                    if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>card${checkSearch}.`);
-                    } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>cards${checkSearch}.`);
-                    }
-                } else {
-                    if (numberOfResults === 1) {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>card found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
-                    } else {
-                        $("#howmany").empty().append(`${numberOfResults} <span><b>${shortRace}</span></b>cards found with cost <span><b>${costInt}</b></span>${checkSearch}.`);
-                    }
-                }
-            }
-
-            ///////////////Change the labels of the radio buttons to add the number of results per class////////////////////
-           /* $("label[for='All']").text(`All (${allCounter})`);
-            $("label[for='Druid']").text(`Druid (${druidCounter})`);
-            $("label[for='Hunter']").text(`Hunter (${hunterCounter})`);
-            $("label[for='Mage']").text(`Mage (${mageCounter})`);
-            $("label[for='Neutral']").text(`Neutral (${neutralCounter})`);
-            $("label[for='Paladin']").text(`Paladin (${paladinCounter})`);
-            $("label[for='Priest']").text(`Priest (${priestCounter})`);
-            $("label[for='Rogue']").text(`Rogue (${rogueCounter})`);
-            $("label[for='Shaman']").text(`Shaman (${shamanCounter})`);
-            $("label[for='Warlock']").text(`Warlock (${warlockCounter})`);
-            $("label[for='Warrior']").text(`Warrior (${warriorCounter})`);
-*/
             return false;
         }
 
         $("#submit").click(search);
-        
-        $("#hamburger").click(function() {
+
+        $("#hamburger").click(function () {
             $("#hamburger").toggleClass("darken");
             if ($("#hamburger").hasClass("darken")) {
                 $("#hamburgermenu").css("display", "flex");
-            }
-            else {
+            } else {
                 $("#hamburgermenu").css("display", "none");
             }
             $("#hamburgermenu").toggleClass("moveMenu");
