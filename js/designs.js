@@ -22,7 +22,7 @@ let resultsPerPage = 20;
 let pageNum = 1;
 let currentResultsCounter = 0;
 let totalPages = 1;
-
+let arrayOfResultObjects = [];
 
 //////////////////////////////Header filter dropdown appearance///////////////////////////////////////   
 let start = function () {
@@ -127,6 +127,75 @@ start();
         console.log(allCards["Mean Streets of Gadgetzan"][144]);
         let allCategories = ["Basic", "Blackrock Mountain", "Classic", "Credits", "Goblins vs Gnomes", "Hall of Fame", "Hero Skins", "Journey to Un'Goro", "Knights of the Frozen Throne", "Kobolds & Catacombs", "Mean Streets of Gadgetzan", "Missions", "Naxxramas", "One Night in Karazhan", "Tavern Brawl", "The Grand Tournament", "The League of Explorers", "The Witchwood", "Whispers of the Old Gods"];
 
+        let appendResults = function (index, resultsPerPage, page) {
+            for (index; index < (resultsPerPage * page); index++) {
+                if (arrayOfResultObjects[index] !== undefined) {
+                    $("#results").append(`<img src="${arrayOfResultObjects[index].img}" alt="${arrayOfResultObjects[index].name}" id = "${arrayOfResultObjects[index].cardId}" onerror="imageError(${arrayOfResultObjects[index].cardId})">`);
+                    $(`#${arrayOfResultObjects[index].cardId}`).click(clickCard);
+                } else {
+                    break;
+                }
+            }
+            $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
+        };
+
+        //////////////////////////////When a card is clicked from the results of the search///////////////////////////////////////
+        let clickCard = function () {
+            $(".toblur").addClass("blur");
+            let top = (scrollY + (innerHeight) / 4);
+            $("#details").empty();
+            for (let x = 0; x < arrayOfResultObjects.length; x++) {
+                if (arrayOfResultObjects[x].cardId === $(this).attr('id')) {
+                    let flavor = "No flavor text available for this card."
+                    if (arrayOfResultObjects[x].flavor !== undefined) {
+                        flavor = arrayOfResultObjects[x].flavor;
+                    }
+                    let artist = "unknown artist";
+                    if (arrayOfResultObjects[x].artist !== undefined) {
+                        artist = arrayOfResultObjects[x].artist;
+                    }
+                    let gold = arrayOfResultObjects[x].img;
+                    if (arrayOfResultObjects[x].imgGold !== undefined) {
+                        gold = arrayOfResultObjects[x].imgGold;
+                    }
+
+                    $("#details").append(`<div id="activeCard"><span id="close">X</span><div id="content">
+                                                <img src="${arrayOfResultObjects[x].img}" id="activeImage">
+                                                <img src="${gold}" id="goldImage" class="hide"><div id="detailsText">
+                                                <p id="name">${arrayOfResultObjects[x].name}</p></p>
+                                                <p id="cardSet">${arrayOfResultObjects[x].cardSet} Card Set</p>
+                                                <p id="artist">Art by ${artist}</p>
+                                                <p id="flavor"><em>${flavor}</em></p></div></div>
+                                            </div>`)
+                    $("#cover").removeClass("hide");
+                    $("#activeCard").css("top", top);
+                    $("body").addClass("stop-scrolling");
+                }
+            };
+            $("#close").click(function () {
+                $("body").removeClass("stop-scrolling");
+                $("#details").empty();
+                $(".toblur").removeClass("blur");
+                $("#cover").addClass("hide");
+            });
+            ///////////////#cover adds a layer between the card details popup and the background to click on (to exit) and block image interaction///////////////////
+            $("#cover").click(function () {
+                $("body").removeClass("stop-scrolling");
+                $("#details").empty();
+                $(".toblur").removeClass("blur");
+                $("#cover").addClass("hide");
+            });
+            ///////////////When you click on the active card, it changes to the gold version if available////////////////////
+            $("#activeImage").click(function () {
+                $("#activeImage").addClass("hide");
+                $("#goldImage").removeClass("hide");
+            });
+            $("#goldImage").click(function () {
+                $("#activeImage").removeClass("hide");
+                $("#goldImage").addClass("hide");
+            });
+        };
+
         //////////////////////////////Called every time search button is clicked OR search filter changed///////////////////////////////////////
         let search = function () {
             event.preventDefault;
@@ -148,64 +217,8 @@ start();
             pageNum = 1;
             totalPages = 1;
 
-            let arrayOfResultObjects = []; ///////////////This array holds all search result objects and resets every search/////////////////////
+            arrayOfResultObjects = []; ///////////////This array holds all search result objects and resets every search/////////////////////
 
-            //////////////////////////////When a card is clicked from the results of the search///////////////////////////////////////
-            let clickCard = function () {
-                $(".toblur").addClass("blur");
-                let top = (scrollY + (innerHeight) / 4);
-                $("#details").empty();
-                for (let x = 0; x < arrayOfResultObjects.length; x++) {
-                    if (arrayOfResultObjects[x].cardId === $(this).attr('id')) {
-                        let flavor = "No flavor text available for this card."
-                        if (arrayOfResultObjects[x].flavor !== undefined) {
-                            flavor = arrayOfResultObjects[x].flavor;
-                        }
-                        let artist = "unknown artist";
-                        if (arrayOfResultObjects[x].artist !== undefined) {
-                            artist = arrayOfResultObjects[x].artist;
-                        }
-                        let gold = arrayOfResultObjects[x].img;
-                        if (arrayOfResultObjects[x].imgGold !== undefined) {
-                            gold = arrayOfResultObjects[x].imgGold;
-                        }
-
-                        $("#details").append(`<div id="activeCard"><span id="close">X</span><div id="content">
-                                                <img src="${arrayOfResultObjects[x].img}" id="activeImage">
-                                                <img src="${gold}" id="goldImage" class="hide"><div id="detailsText">
-                                                <p id="name">${arrayOfResultObjects[x].name}</p></p>
-                                                <p id="cardSet">${arrayOfResultObjects[x].cardSet} Card Set</p>
-                                                <p id="artist">Art by ${artist}</p>
-                                                <p id="flavor"><em>${flavor}</em></p></div></div>
-                                            </div>`)
-                        $("#cover").removeClass("hide");
-                        $("#activeCard").css("top", top);
-                        $("body").addClass("stop-scrolling");
-                    }
-                };
-                $("#close").click(function () {
-                    $("body").removeClass("stop-scrolling");
-                    $("#details").empty();
-                    $(".toblur").removeClass("blur");
-                    $("#cover").addClass("hide");
-                });
-                ///////////////#cover adds a layer between the card details popup and the background to click on (to exit) and block image interaction///////////////////
-                $("#cover").click(function () {
-                    $("body").removeClass("stop-scrolling");
-                    $("#details").empty();
-                    $(".toblur").removeClass("blur");
-                    $("#cover").addClass("hide");
-                });
-                ///////////////When you click on the active card, it changes to the gold version if available////////////////////
-                $("#activeImage").click(function () {
-                    $("#activeImage").addClass("hide");
-                    $("#goldImage").removeClass("hide");
-                });
-                $("#goldImage").click(function () {
-                    $("#activeImage").removeClass("hide");
-                    $("#goldImage").addClass("hide");
-                });
-            };
 
             ///////////////Meat of the search function. Loops through each card in each category for search text matching in card body and name////////////////////
             for (let a = 0; a < allCategories.length; a++) {
@@ -254,62 +267,24 @@ start();
             }
 
             totalPages = Math.ceil(arrayOfResultObjects.length / resultsPerPage);
-            
+
             if (totalPages === 1) {
                 $(".left").addClass("hide");
                 $(".right").addClass("hide");
             };
-            
+
             if (totalPages === 0 || numberOfResults === 0) {
                 $(".pageNav").addClass("hide");
             };
 
-            let appendResults = function (index, resultsPerPage, page) {
-                for (index; index < (resultsPerPage * page); index++) {
-                    if (arrayOfResultObjects[index] !== undefined) {
-                        $("#results").append(`<img src="${arrayOfResultObjects[index].img}" alt="${arrayOfResultObjects[index].name}" id = "${arrayOfResultObjects[index].cardId}" onerror="imageError(${arrayOfResultObjects[index].cardId})">`);
-                        $(`#${arrayOfResultObjects[index].cardId}`).click(clickCard);
-                        $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
-                    } else {
-                        break;
-                    }
-                }
-            }
-
             appendResults(currentResultsCounter, resultsPerPage, pageNum);
-            
-            console.log(currentResultsCounter, resultsPerPage, pageNum);
-
-            $(".right").click(function () {
-                if (pageNum < totalPages) {
-                    pageNum++;
-                    currentResultsCounter = currentResultsCounter + resultsPerPage;
-                    $("#results").empty();
-                    appendResults(currentResultsCounter, resultsPerPage, pageNum);
-                    $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
-                    console.log(currentResultsCounter, resultsPerPage, pageNum);
-                }
-            })
-
-            $(".left").click(function () {
-                if (pageNum > 1) {
-                    pageNum--;
-                    currentResultsCounter = currentResultsCounter - resultsPerPage;
-                    $("#results").empty();
-                    appendResults(currentResultsCounter, resultsPerPage, pageNum);
-                    $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
-                    console.log(currentResultsCounter, resultsPerPage, pageNum);
-                }
-            })
-
-
 
             let shortClass = ` <span><b>${currentClass}</b></span> class`;
             if (currentClass === "All") shortClass = "";
 
             let shortRace = ` <span><b>${currentRace}</span></b> `;
             if (currentRace === "Any") shortRace = "";
-            
+
             let no = "";
             if (numberOfResults === 0) no = "No ";
 
@@ -356,6 +331,26 @@ start();
             currentRace = $(this).attr("id");
             search();
         })
+
+        $(".right").click(function () {
+            if (pageNum < totalPages) {
+                pageNum = pageNum + 1;
+                currentResultsCounter = currentResultsCounter + resultsPerPage;
+                $("#results").empty();
+                appendResults(currentResultsCounter, resultsPerPage, pageNum);
+                $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
+            }
+        });
+
+        $(".left").click(function () {
+            if (pageNum > 1) {
+                pageNum = pageNum - 1;
+                currentResultsCounter = currentResultsCounter - resultsPerPage;
+                $("#results").empty();
+                appendResults(currentResultsCounter, resultsPerPage, pageNum);
+                $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
+            }
+        });
     }
 
     //////////////////////////////If Get request fails///////////////////////////////////////
