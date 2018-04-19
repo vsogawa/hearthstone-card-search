@@ -16,6 +16,22 @@ header {
     padding-left: 450px;
 }
 
+.pageNav {
+    font-size: 26px;
+    margin-bottom: -10px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.pageID {
+    margin: 0 30px;
+}
+
+.left:hover, .right:hover {
+    cursor: pointer;
+    color: white;
+}
+
 #hamburgermenu {
     display: flex;
     flex-wrap: wrap;
@@ -99,6 +115,14 @@ input[type=radio] {
     width: 20vw;
     height: 30px;
     font-size: 18px;
+}
+
+#failedImgs {
+    cursor: pointer;
+}
+
+#failedImgs:hover {
+    color: #f0e450;
 }
 
 #submit {
@@ -219,7 +243,6 @@ img:hover {
     height: 70px;
     border-radius: 40px;
     opacity: 0.9;
-    margin-bottom: -20px;
     padding-top: 10px;
 }
 

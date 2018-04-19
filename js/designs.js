@@ -1,9 +1,14 @@
 //////////////////////////////State of the page///////////////////////////////////////   
 let numberFailed = 0;
-let imageError = function () {
+
+function imageError(imageID) {
     numberFailed++;
-    $("#howmanyfailed").empty().append(`Unfortunately, ${numberFailed} image(s) didn't load due to broken or outdated URLs :(`);
+    //    $("#howmanyfailed").empty().append(`Unfortunately, <u id="failedImgs">${numberFailed} image(s)</u> didn't load due to broken or outdated URLs :(`);
+    $(imageID).remove();
+    //$("#resultscount").empty().append(numberOfResults - numberFailed);
 };
+
+let numberOfResults = 0;
 
 let currentClass = "All";
 let currentCost = "anycost";
@@ -12,6 +17,12 @@ let currentRace = "Any";
 let costStatus = false;
 let classStatus = false;
 let raceStatus = false;
+
+let resultsPerPage = 20;
+let pageNum = 1;
+let currentResultsCounter = 0;
+let totalPages = 1;
+
 
 //////////////////////////////Header filter dropdown appearance///////////////////////////////////////   
 let start = function () {
@@ -124,12 +135,19 @@ start();
             $("#random").addClass("hide");
             $("#welcome").addClass("hide");
             $("#welcometext").addClass("hide");
+            $(".left").removeClass("hide");
+            $(".right").removeClass("hide");
+            $(".pageNav").removeClass("hide");
             $("#howmanyfailed").empty();
-            let numberOfResults = 0;
+            numberOfResults = 0;
             let searchValue = $("#search").val();
             let searchValueLower = searchValue.toLowerCase();
             $("#results").empty();
             $(".center").removeClass("hide");
+            currentResultsCounter = 0;
+            pageNum = 1;
+            totalPages = 1;
+
             let arrayOfResultObjects = []; ///////////////This array holds all search result objects and resets every search/////////////////////
 
             //////////////////////////////When a card is clicked from the results of the search///////////////////////////////////////
@@ -139,7 +157,6 @@ start();
                 $("#details").empty();
                 for (let x = 0; x < arrayOfResultObjects.length; x++) {
                     if (arrayOfResultObjects[x].cardId === $(this).attr('id')) {
-                        console.log(arrayOfResultObjects[x].flavor);
                         let flavor = "No flavor text available for this card."
                         if (arrayOfResultObjects[x].flavor !== undefined) {
                             flavor = arrayOfResultObjects[x].flavor;
@@ -195,12 +212,14 @@ start();
                 let category = allCategories[a];
                 let categoryLength = allCards[category].length;
                 for (let b = 0; b < categoryLength; b++) {
-                    let cardID = allCards[category][b].cardId;
+                    let cardID = String(allCards[category][b].cardId);
                     let cardName = allCards[category][b].name.toLowerCase();
+                    let cardNameTag = toString(allCards[category][b].name);
                     let cardDescription = "";
                     let cardRace = "";
                     let imageGold = allCards[category][b].imgGold;
                     let cardCost = `cost${allCards[category][b].cost}`;
+
                     if (allCards[category][b].text !== undefined) {
                         cardDescription = allCards[category][b].text.toLowerCase();
                     }
@@ -210,40 +229,79 @@ start();
                     if (allCards[category][b].imgGold === undefined) {
                         imageGold = allCards[category][b].img;
                     }
+                    let appendAndCountResults = function () {
+                        numberOfResults++;
+                        arrayOfResultObjects.push(allCards[category][b]);
+                    }
 
-                    if ((cardName.includes(searchValueLower) || cardDescription.includes(searchValueLower) || cardRace.includes(searchValueLower)) && (currentCost === "anycost" || currentCost === cardCost) && (currentRace === "Any" || currentRace === allCards[category][b].race)) {
+                    if ((cardName.includes(searchValueLower) || cardDescription.includes(searchValueLower) || cardRace.includes(searchValueLower)) && (currentCost === "anycost" || currentCost === cardCost) && (currentRace === "Any" || currentRace === allCards[category][b].race) && allCards[category][b].type !== "Enchantment" && allCards[category][b].img !== undefined) {
                         ///////////////There are three groups of cards that do not have a class, but rather have 3 under "multiClassGroup"////////////////////
                         if (allCards[category][b].multiClassGroup === "Jade Lotus" && (currentClass === "Shaman" || currentClass === "Rogue" || currentClass === "Druid" || currentClass === "Neutral" || currentClass === "All")) {
-                            $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                            numberOfResults++;
-                            arrayOfResultObjects.push(allCards[category][b]);
-                            $(`#${cardID}`).click(clickCard);
+                            appendAndCountResults();
                         } else if (allCards[category][b].multiClassGroup === "Grimy Goons" && (currentClass === "Hunter" || currentClass === "Paladin" || currentClass === "Warrior" || currentClass === "Neutral" || currentClass === "All")) {
-                            $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                            numberOfResults++;
-                            arrayOfResultObjects.push(allCards[category][b]);
-                            $(`#${cardID}`).click(clickCard);
+                            appendAndCountResults();
                         } else if (allCards[category][b].multiClassGroup === "Kabal" && (currentClass === "Mage" || currentClass === "Priest" || currentClass === "Warlock" || currentClass === "Neutral" || currentClass === "All")) {
-                            $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                            numberOfResults++;
-                            arrayOfResultObjects.push(allCards[category][b]);
-                            $(`#${cardID}`).click(clickCard);
+                            appendAndCountResults();
                         } else { ////////If the card is none of the three weird groups of cards that has multiple classes, i.e. almost all of the cards//////////////////
                             if (currentClass === "All") {
-                                $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                                arrayOfResultObjects.push(allCards[category][b]);
-                                numberOfResults++;
-                                $(`#${cardID}`).click(clickCard);
+                                appendAndCountResults();
                             } else if (allCards[category][b].playerClass === currentClass) {
-                                $("#results").append(`<img src = "${allCards[category][b].img}" alt="${allCards[category][b].name}" id = "${cardID}" onerror="imageError()">`);
-                                numberOfResults++;
-                                arrayOfResultObjects.push(allCards[category][b]);
-                                $(`#${cardID}`).click(clickCard);
+                                appendAndCountResults();
                             }
                         }
                     }
                 }
             }
+
+            totalPages = Math.ceil(arrayOfResultObjects.length / resultsPerPage);
+            
+            if (totalPages === 1) {
+                $(".left").addClass("hide");
+                $(".right").addClass("hide");
+            };
+            
+            if (totalPages === 0 || numberOfResults === 0) {
+                $(".pageNav").addClass("hide");
+            };
+
+            let appendResults = function (index, resultsPerPage, page) {
+                for (index; index < (resultsPerPage * page); index++) {
+                    if (arrayOfResultObjects[index] !== undefined) {
+                        $("#results").append(`<img src="${arrayOfResultObjects[index].img}" alt="${arrayOfResultObjects[index].name}" id = "${arrayOfResultObjects[index].cardId}" onerror="imageError(${arrayOfResultObjects[index].cardId})">`);
+                        $(`#${arrayOfResultObjects[index].cardId}`).click(clickCard);
+                        $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            appendResults(currentResultsCounter, resultsPerPage, pageNum);
+            
+            console.log(currentResultsCounter, resultsPerPage, pageNum);
+
+            $(".right").click(function () {
+                if (pageNum < totalPages) {
+                    pageNum++;
+                    currentResultsCounter = currentResultsCounter + resultsPerPage;
+                    $("#results").empty();
+                    appendResults(currentResultsCounter, resultsPerPage, pageNum);
+                    $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
+                    console.log(currentResultsCounter, resultsPerPage, pageNum);
+                }
+            })
+
+            $(".left").click(function () {
+                if (pageNum > 1) {
+                    pageNum--;
+                    currentResultsCounter = currentResultsCounter - resultsPerPage;
+                    $("#results").empty();
+                    appendResults(currentResultsCounter, resultsPerPage, pageNum);
+                    $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
+                    console.log(currentResultsCounter, resultsPerPage, pageNum);
+                }
+            })
+
 
 
             let shortClass = ` <span><b>${currentClass}</b></span> class`;
@@ -251,9 +309,13 @@ start();
 
             let shortRace = ` <span><b>${currentRace}</span></b> `;
             if (currentRace === "Any") shortRace = "";
+            
+            let no = "";
+            if (numberOfResults === 0) no = "No ";
 
-            let cardvscards = " cards found";
-            if (numberOfResults === 1) cardvscards = " card found";
+            let cardvscards = " cards";
+            if (currentClass === "All" && currentRace === "Any") cardvscards = "Cards";
+            if (numberOfResults === 1) cardvscards = " card";
 
             let resultCount = ` with cost <span><b>${currentCost.substring(4)}</b></span>`;
             if (currentCost === "anycost") resultCount = "";
@@ -261,8 +323,8 @@ start();
             let checkSearch = ` containing the search term <span><b><em>${searchValue}</em></b></span>`;
             if (searchValue === "" || searchValue === " ") checkSearch = "";
 
-            $("#howmany").empty().append(`${numberOfResults}${shortClass}${shortRace}${cardvscards}${resultCount}${checkSearch}.`);
-
+            $("#howmany").empty().append(`${no}${shortClass}${shortRace}${cardvscards}${resultCount}${checkSearch} <b>:</b>`);
+            $(".pageID").empty().append(`Page ${pageNum} of ${totalPages}`);
 
             return false;
         }
