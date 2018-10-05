@@ -1,0 +1,59 @@
+class CardController {
+    constructor(view, model) {
+        this.view = view;
+        this.model = model;
+    }
+    
+    getCardData() {
+        const asyncRequestObject = new XMLHttpRequest();
+        asyncRequestObject.open('GET', "xxxxxxxxxxx");
+        asyncRequestObject.setRequestHeader("");   
+        asyncRequestObject.onload = handleSuccess();
+        asyncRequestObject.onerror = handleError();
+        asyncRequestObject.send();
+    }
+    
+    handleSuccess() {
+        let allCards = JSON.parse(this.responseText);
+        model.model = allCards;
+        view.updateWelcome();
+    }
+    
+}
+
+class CardModel {
+    constructor(cardDatabase) {
+        this.allCards = cardDatabase;
+    }
+}
+
+
+class CardView {
+    constructor(model, card) {
+        this.model = model;
+        this.card = card;
+    }
+
+    show() {
+        //function that updates DOM
+    }
+    
+    updateWelcome() {
+        $("#loading").addClass("hide");
+        $("#loadingtext").addClass("hide");
+        $("#random").removeClass("hide");
+        $("#welcome").removeClass("hide");
+        $("#welcometext").removeClass("hide");
+    }
+}
+
+
+
+(function () {
+    let model = new CardModel(asyncRequestObject),
+        view = new CardView(model, ),
+        controller = new CardController(view, model);
+        controller.getCardData();
+
+    view.show();
+})();
